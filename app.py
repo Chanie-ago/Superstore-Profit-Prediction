@@ -57,8 +57,9 @@ def load_model_and_encoders():
         except FileNotFoundError:
             metrics = None
         return model, encoders, features, metrics
-    except FileNotFoundError as e:
-        st.error(f"⚠️ Model files not found! Please run the notebook first to generate the models. Error: {e}")
+    except Exception as e:
+        st.error(f"⚠️ Error loading models: {e}")
+        st.info("Make sure all model files are in the repository.")
         return None, None, None, None
 
 # Load data
@@ -66,11 +67,16 @@ def load_model_and_encoders():
 def load_data():
     try:
         df = pd.read_csv('./data/raw/Superstore.csv', encoding='latin-1')
-        df['Order Date'] = pd.to_datetime(df['Order Date'], format='%d-%m-%Y')
-        df['Ship Date'] = pd.to_datetime(df['Ship Date'], format='%d-%m-%Y')
+        # Try multiple date formats
+        try:
+            df['Order Date'] = pd.to_datetime(df['Order Date'], format='%d-%m-%Y')
+            df['Ship Date'] = pd.to_datetime(df['Ship Date'], format='%d-%m-%Y')
+        except:
+            df['Order Date'] = pd.to_datetime(df['Order Date'])
+            df['Ship Date'] = pd.to_datetime(df['Ship Date'])
         return df
-    except FileNotFoundError:
-        st.error("⚠️ Dataset not found!")
+    except Exception as e:
+        st.error(f"⚠️ Error loading dataset: {e}")
         return None
 
 def main():
