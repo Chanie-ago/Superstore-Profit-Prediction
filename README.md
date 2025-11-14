@@ -1,5 +1,7 @@
 # 📊 Superstore Profit Prediction
 
+**Live Demo:** (https://superstore-profit-prediction.streamlit.app/)
+
 Aplikasi Machine Learning untuk memprediksi profit penjualan menggunakan data Superstore dengan model CatBoost.
 
 ## 🎯 Objective
@@ -192,9 +194,6 @@ xgboost==2.0.3
 catboost==1.2.2
 streamlit==1.29.0
 ```
-
-**Live Demo:** [Link akan muncul setelah deployment]
-
 ## 🎯 Cara Menggunakan Aplikasi
 
 ### Halaman 1: Dashboard Overview 📈
